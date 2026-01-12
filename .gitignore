@@ -3,3 +3,7 @@ bazel-*
 compile_commands.json
 build/
 WORKSPACE
+<<<<<<< HEAD
+=======
+CMakeLists.txt.user
+>>>>>>> 92667ee (init.)

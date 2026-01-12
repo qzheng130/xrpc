@@ -17,9 +17,15 @@ set(CXX_FLAGS
  -D_FILE_OFFSET_BITS=64
  -Wall
  -Wextra
+<<<<<<< HEAD
  -Werror
  -Wconversion
  -Wno-unused-parameter
+=======
+#  -Werror
+ -Wconversion
+#  -Wno-unused-parameter
+>>>>>>> 92667ee (init.)
  -Wold-style-cast
  -Woverloaded-virtual
  -Wpointer-arith
@@ -60,7 +66,12 @@ set(CMAKE_VERBOSE_MAKEFILE off)
 find_package(Boost REQUIRED COMPONENTS
   program_options
 )
-include_directories(${Boost_INCLUDE_DIRS})
+if(Boost_FOUND)
+    message(STATUS "Boost version: ${Boost_VERSION}")
+    message(STATUS "Boost include dirs: ${Boost_INCLUDE_DIRS}")
+    message(STATUS "Boost libraries: ${Boost_LIBRARIES}")
+    include_directories(${Boost_INCLUDE_DIRS})
+endif()
 # 打印Boost变量，Boost库头文件们路径、库文件们路径、库们、版本等
 # get_property(pkg_vars DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VARIABLES)
 # foreach(var ${pkg_vars})
@@ -70,19 +81,55 @@ include_directories(${Boost_INCLUDE_DIRS})
 # endforeach()
 
 find_package(GTest)
-include_directories(${GTEST_INCLUDE_DIRS})
-MESSAGE(${GTEST_INCLUDE_DIRS})
-MESSAGE(${GTEST_BOTH_LIBRARIES})
-MESSAGE(${GTEST_LIBRARIES})
-MESSAGE(${GTEST_MAIN_LIBRARIES})
-
-find_package(Protobuf)
-if(PROTOBUF_FOUND)
-  message(STATUS "found protobuf")
+if(GTEST_FOUND)
+    message(STATUS "GTEST version: ${GTEST_VERSION}")
+    message(STATUS "GTEST include dirs: ${GTEST_INCLUDE_DIRS}")
+    message(STATUS "GTEST libraries: ${GTEST_LIBRARIES}")
+    include_directories(${GTEST_INCLUDE_DIRS})
 endif()
 
+find_package(Protobuf REQUIRED)
+if(Protobuf_FOUND)
+    message(STATUS "Protobuf version: ${Protobuf_VERSION}")
+    message(STATUS "Protobuf include dirs: ${Protobuf_INCLUDE_DIRS}")
+    message(STATUS "Protobuf libraries: ${Protobuf_LIBRARIES}")
+    include_directories(${Protobuf_INCLUDE_DIRS})
+endif()
+
+# 明确指定 protobuf 版本
+# set(Protobuf_VERSION 28.0)  # 或 28.0
+# find_package(Protobuf ${Protobuf_VERSION} REQUIRED)
+
+# # 验证版本
+# message(STATUS "Protobuf version: ${Protobuf_VERSION}")
+# message(STATUS "Protobuf include: ${Protobuf_INCLUDE_DIRS}")
+# message(STATUS "Protobuf libraries: ${Protobuf_LIBRARIES}")
+# message(STATUS "Protobuf protoc: ${Protobuf_PROTOC_EXECUTABLE}")
+
+# # 检查 protoc 版本
+# execute_process(
+#     COMMAND ${Protobuf_PROTOC_EXECUTABLE} --version
+#     OUTPUT_VARIABLE PROTOC_VERSION
+#     OUTPUT_STRIP_TRAILING_WHITESPACE
+# )
+# message(STATUS "Protoc version: ${PROTOC_VERSION}")
+
+# # 如果版本不匹配，报错
+# string(REGEX MATCH "[0-9]+\\.[0-9]+\\.[0-9]+" PROTOC_VER ${PROTOC_VERSION})
+# if(NOT "${PROTOC_VER}" STREQUAL "${Protobuf_VERSION}")
+#     message(FATAL_ERROR "Protoc version ${PROTOC_VER} does not match library version ${Protobuf_VERSION}")
+# endif()
+
+find_package(spdlog)
+if(spdlog_FOUND)
+    message(STATUS "spdlog version: ${spdlog_VERSION}")
+    message(STATUS "spdlog include dirs: ${spdlog_INCLUDE_DIRS}")
+    message(STATUS "spdlog libraries: ${spdlog_LIBRARIES}")
+    include_directories(${spdlog_INCLUDE_DIRS})
+endif()
 
 include_directories(${PROJECT_SOURCE_DIR})
+include_directories(${PROJECT_SOURCE_DIR}/thirdparty/xnet/include)
 # include_directories(base)
 # include_directories(xrpc)
 
