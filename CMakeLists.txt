@@ -27,7 +27,7 @@ set(CXX_FLAGS
  -Wwrite-strings
  -march=native
  # -MMD
- -std=c++17
+ -std=c++20
  -rdynamic
  )
 
