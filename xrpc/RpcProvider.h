@@ -1,7 +1,4 @@
 #pragma once
-<<<<<<< HEAD
-#include "google/protobuf/service.h"
-=======
 
 #include "xnet/net/TcpServer.h"
 #include "xnet/net/EventLoop.h"
@@ -13,15 +10,12 @@
 #include <unordered_map>
 #include <google/protobuf/descriptor.h>
 #include <google/protobuf/service.h>
->>>>>>> 92667ee (init.)
 
 class RpcProvider
 {
 public:
     void notifyService(google::protobuf::Service *service);
     void run();
-<<<<<<< HEAD
-=======
 
 private:
     void onConnection(const xnet::net::TcpConnectionPtr &);
@@ -37,5 +31,4 @@ private:
     };
 
     std::unordered_map<std::string, struct ServiceInfo> services_;
->>>>>>> 92667ee (init.)
 };

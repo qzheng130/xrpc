@@ -2,6 +2,7 @@
 
 #include "base/Singleton.h"
 #include <boost/core/noncopyable.hpp>
+#include <string>
 
 class RpcConfig : public boost::noncopyable
 {

@@ -1,9 +1,5 @@
 syntax="proto3";
-<<<<<<< HEAD
-package fixbug;
-=======
 package test;
->>>>>>> 92667ee (init.)
 
 option cc_generic_services = true;
 

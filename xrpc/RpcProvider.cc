@@ -1,10 +1,4 @@
 #include "RpcProvider.h"
-<<<<<<< HEAD
-
-void RpcProvider::notifyService(google::protobuf::Service *service) { }
-
-void RpcProvider::run() { }
-=======
 #include "RpcConfig.h"
 #include "base/cppbase.h"
 #include "rpcheader.pb.h"
@@ -68,7 +62,7 @@ void RpcProvider::onMessage(const xnet::net::TcpConnectionPtr &conn,
     string buf = buffer->retrieveAllAsString();
 
     uint32_t headerSize = 0;
-    buf.copy((char *)&headerSize, 4, 0);
+    buf.copy(reinterpret_cast<char *>(&headerSize), 4, 0);
 
     string header = buf.substr(4, headerSize);
     rpc::RpcHeader rpcHeader;
@@ -137,4 +131,3 @@ void RpcProvider::sendRpcResponse(const xnet::net::TcpConnectionPtr &conn, Messa
 
     conn->shutdown();
 }
->>>>>>> 92667ee (init.)

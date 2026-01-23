@@ -74,11 +74,7 @@ AlignConsecutiveMacros:
 # - DontAlign: 不做操作
 # - Left: 尽可能向左对齐, 即最长一行代码为准
 # - Right: 跟开发都写的最远的\\对齐(即不会自动缩减你的空格), 建议使用这个
-<<<<<<< HEAD
-AlignEscapedNewlines: Right
-=======
 AlignEscapedNewlines: Left
->>>>>>> 92667ee (init.)
 
 # 在二元/一元表达式中的操作数对齐, 可选值:
 # - DontAlign: 不做对齐, 在操作数换行后, 将使用ContinuationIndentWidth来对齐
@@ -112,24 +108,14 @@ AlwaysBreakBeforeMultilineStrings: false
 # - No: 永远不对开发者的风格作处理
 # - MultiLine: 建议值, 即仅在开发者写的模板声明(包括函数)跨越多行时, 进行换行, 否则维持原样
 # - Yes: 不管如何都进行分行, 不建议
-<<<<<<< HEAD
 AlwaysBreakTemplateDeclarations: MultiLine
-=======
-AlwaysBreakTemplateDeclarations: Yes
->>>>>>> 92667ee (init.)
 # 属性宏列表, 自定义, 用于语言扩展或静态分析注解, 可忽略
 AttributeMacros:
   - __capability
 # 函数调用时的参数(Arguments)是否放置于一行, false不放置, true强制一个调用参数一行, 建议false
-<<<<<<< HEAD
-BinPackArguments: true
-# 函数定义参数(Parameters)是否放置于一行, 同BinPackArguments
-BinPackParameters: true
-=======
 BinPackArguments: false
 # 函数定义参数(Parameters)是否放置于一行, 同BinPackArguments
 BinPackParameters: false
->>>>>>> 92667ee (init.)
 
 # 大括号换行
 BraceWrapping:
@@ -178,11 +164,7 @@ BreakAfterJavaFieldAnnotations: false
 # 字面字符串是否换行, true
 BreakStringLiterals: true
 # 代码列字符上限
-<<<<<<< HEAD
-ColumnLimit: 120
-=======
 ColumnLimit: 100
->>>>>>> 92667ee (init.)
 # pragma注释
 CommentPragmas:  '^ IWYU pragma:'
 # 注释关键字对齐(const/volatile), 建议Leave
