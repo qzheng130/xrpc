@@ -33,7 +33,9 @@ class function_wrapper
         virtual void call()=0;
         virtual ~impl_base() {}
     };
+
     std::unique_ptr<impl_base> impl;
+
     template<typename F>
     struct impl_type: impl_base
     {
@@ -41,13 +43,16 @@ class function_wrapper
         impl_type(F&& f_): f(std::move(f_)) {}
         void call() { f(); }
     };
+
 public:
     template<typename F>
     function_wrapper(F&& f):
         impl(new impl_type<F>(std::move(f)))
     {}
 
-    void call() { impl->call(); }
+    void operator()() { impl->call(); }
+
+    function_wrapper() = default;
 
     function_wrapper(function_wrapper&& other):
         impl(std::move(other.impl))
@@ -86,7 +91,7 @@ public:
 private:
     void worker_thread();
     
-    std::atomic_bool done;
+    std::atomic<bool> done;
     threadsafe_queue<function_wrapper> work_queue;
     std::vector<std::thread> threads;
     join_threads joiner;

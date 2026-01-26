@@ -2,6 +2,7 @@
 #include <vector>
 #include <atomic>
 #include "threadsafe_queue.h"
+
 class join_threads
 {
     std::vector<std::thread>& threads;
@@ -21,26 +22,6 @@ public:
 
 class thread_pool_vv
 {
-    std::atomic_bool done;
-    threadsafe_queue<std::function<void()> > work_queue;
-    std::vector<std::thread> threads;
-    join_threads joiner;
-
-    void worker_thread()
-    {
-        while(!done)
-        {
-            std::function<void()> task;
-            if(work_queue.try_pop(task))
-            {
-                task();
-            }
-            else
-            {
-                std::this_thread::yield();
-            }
-        }
-    }
 public:
     thread_pool_vv():
         done(false),joiner(threads)
@@ -71,4 +52,25 @@ public:
     {
         work_queue.push(std::function<void()>(f));
     }
+private:
+    void worker_thread()
+    {
+        while(!done)
+        {
+            std::function<void()> task;
+            if(work_queue.try_pop(task))
+            {
+                task();
+            }
+            else
+            {
+                std::this_thread::yield();
+            }
+        }
+    }
+    
+    std::atomic_bool done;
+    threadsafe_queue<std::function<void()> > work_queue;
+    std::vector<std::thread> threads;
+    join_threads joiner;
 };

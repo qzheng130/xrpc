@@ -22,10 +22,10 @@ void thread_pool::worker_thread()
 {
     while (!done)
     {
-        std::function<void()> fun;
-        if (work_queue.try_pop(fun))
+        function_wrapper task;
+        if (work_queue.try_pop(task))
         {
-            fun();
+            task();
         }
         else
         {

@@ -18,20 +18,20 @@ T parallel_accumulate(Iterator first, Iterator last, T init)
     thread_pool pool;
 
     Iterator block_start = first;
-    for (unsigned long i = 0; i < (num_threads - 1); ++i)
+    for (unsigned long i = 0; i < (num_blocks - 1); ++i)
     {
         Iterator block_end = block_start;
         std::advance(block_end, block_size);
-        futures[i] = pool.submit(accumulate_block<Iterator, T>());
+        // futures[i] = pool.submit(accumulate_block<Iterator, T>());
         block_start = block_end;
     }
-    T last_result = accumulate_block()(block_start, last);
+    // T last_result = accumulate_block()(block_start, last);
     T result = init;
     for (unsigned long i = 0; i < (num_blocks - 1); ++i)
     {
         result += futures[i].get();
     }
-    result += last_result;
+    // result += last_result;
     return result;
 }
 
@@ -39,7 +39,7 @@ int main()
 {
     std::vector<int> vec = { 0, 1, 2, 3, 4, 5 };
 
-    int res = parallel_accumulate(vec.begin(), vec.end(), 0);
+    // int res = parallel_accumulate(vec.begin(), vec.end(), 0);
 
     return 0;
 }
