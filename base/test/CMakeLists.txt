@@ -1,2 +1,2 @@
 add_executable(thread_pool_test thread_pool_test.cc)
-target_link_libraries(thread_pool_test base)
+target_link_libraries(thread_pool_test base gtest gtest_main)

@@ -1,45 +1,35 @@
-#include <vector>
-#include <future>
-#include <thread>
-#include "base/thread_pool.h"
+#include <gtest/gtest.h>
+#include <iostream>
 
-template <typename Iterator, typename T>
-T parallel_accumulate(Iterator first, Iterator last, T init)
-{
-    unsigned long const length = std::distance(first, last);
-
-    if (!length)
-        return init;
-
-    unsigned long const block_size = 25;
-    unsigned long const num_blocks = (length + block_size - 1) / block_size;
-
-    std::vector<std::future<T>> futures(num_blocks - 1);
-    thread_pool pool;
-
-    Iterator block_start = first;
-    for (unsigned long i = 0; i < (num_blocks - 1); ++i)
-    {
-        Iterator block_end = block_start;
-        std::advance(block_end, block_size);
-        // futures[i] = pool.submit(accumulate_block<Iterator, T>());
-        block_start = block_end;
-    }
-    // T last_result = accumulate_block()(block_start, last);
-    T result = init;
-    for (unsigned long i = 0; i < (num_blocks - 1); ++i)
-    {
-        result += futures[i].get();
-    }
-    // result += last_result;
-    return result;
+// 简单测试
+TEST(SimpleTest, BasicAssertions) {
+    EXPECT_EQ(2 + 2, 4);
+    EXPECT_NE(2 + 2, 5);
+    EXPECT_TRUE(2 + 2 == 4);
+    EXPECT_FALSE(2 + 2 == 5);
 }
 
-int main()
-{
-    std::vector<int> vec = { 0, 1, 2, 3, 4, 5 };
+// 测试套件
+class MathTest : public ::testing::Test {
+protected:
+    void SetUp() override {
+        // 测试前的设置
+    }
+    
+    void TearDown() override {
+        // 测试后的清理
+    }
+};
 
-    // int res = parallel_accumulate(vec.begin(), vec.end(), 0);
-
-    return 0;
+TEST_F(MathTest, Addition) {
+    EXPECT_EQ(1 + 1, 2);
+    EXPECT_EQ(10 + 20, 30);
 }
+
+// 主函数（如果链接了gtest_main则不需要）
+#ifndef LINK_GTEST_MAIN
+int main(int argc, char **argv) {
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}
+#endif

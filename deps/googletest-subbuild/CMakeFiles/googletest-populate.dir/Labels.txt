@@ -1,0 +1,13 @@
+# Target labels
+ googletest-populate
+# Source files and their labels
+/root/upstream/xrpc/deps/googletest-subbuild/CMakeFiles/googletest-populate
+/root/upstream/xrpc/deps/googletest-subbuild/CMakeFiles/googletest-populate.rule
+/root/upstream/xrpc/deps/googletest-subbuild/CMakeFiles/googletest-populate-complete.rule
+/root/upstream/xrpc/deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-build.rule
+/root/upstream/xrpc/deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-configure.rule
+/root/upstream/xrpc/deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-download.rule
+/root/upstream/xrpc/deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-install.rule
+/root/upstream/xrpc/deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-mkdir.rule
+/root/upstream/xrpc/deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-patch.rule
+/root/upstream/xrpc/deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-test.rule

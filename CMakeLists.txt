@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.20)
 project(xrpc)
 
 if(NOT CMAKE_BUILD_TYPE)
@@ -79,8 +79,10 @@ endif()
 #add_subdirectory(${PROJECT_SOURCE_DIR}/thirdparty/spdlog)
 #include_directories(${PROJECT_SOURCE_DIR}/thirdparty/spdlog/include)
 #add_subdirectory(thirdparty/googletest)
-
-set(FETCHCONTENT_BASE_DIR "${PROJECT_SOURCE_DIR}/deps")
+set(FETCHCONTENT_UPDATES_DISCONNECTED ON)
+#set(FETCHCONTENT_FULLY_DISCONNECTED ON)
+set(FETCHCONTENT_QUIET OFF) 
+set(FETCHCONTENT_BASE_DIR ${PROJECT_SOURCE_DIR}/deps)
 include(FetchContent)
 
 FetchContent_Declare(
@@ -106,15 +108,12 @@ message(STATUS "gmock include目录: ${gtest_SOURCE_DIR}/googlemock/include")
 # fetchcontent info
 message(STATUS "依赖项将下载到: ${FETCHCONTENT_BASE_DIR}")
 
-set(FETCHCONTENT_FULLY_DISCONNECTED ON)
-set(FETCHCONTENT_UPDATES_DISCONNECTED ON)
-
 # using target_link_libraries auto includes header files，no need additional "include_directories"
-include_directories(
-  ${spdlog_SOURCE_DIR}/include
-  ${gtest_SOURCE_DIR}/googletest/include
-  ${gtest_SOURCE_DIR}/googlemock/include
-)
+#include_directories(
+#  ${spdlog_SOURCE_DIR}/include
+#  ${gtest_SOURCE_DIR}/googletest/include
+#  ${gtest_SOURCE_DIR}/googlemock/include
+#)
 
 # 启用测试
 enable_testing()
