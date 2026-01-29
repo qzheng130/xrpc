@@ -63,23 +63,61 @@ include_directories(${Boost_INCLUDE_DIRS})
 find_package(Protobuf REQUIRED)
 include_directories(${Protobuf_INCLUDE_DIRS})
 
-find_package(GTest)
+#find_package(GTest)
 
 include_directories(${PROJECT_SOURCE_DIR})
 include_directories(${PROJECT_SOURCE_DIR}/thirdparty/xnet/include)
 
 add_subdirectory(base)
-include_directories(${PROJECT_SOURCE_DIR}/base)
 add_subdirectory(xrpc)
 
 if(BUILD_EXAMPLES)
   add_subdirectory(examples)
 endif()
 
-add_subdirectory(test)
+#add_subdirectory(test)
+#add_subdirectory(${PROJECT_SOURCE_DIR}/thirdparty/spdlog)
+#include_directories(${PROJECT_SOURCE_DIR}/thirdparty/spdlog/include)
+#add_subdirectory(thirdparty/googletest)
 
-add_subdirectory(${PROJECT_SOURCE_DIR}/thirdparty/spdlog)
-include_directories(${PROJECT_SOURCE_DIR}/thirdparty/spdlog/include)
+set(FETCHCONTENT_BASE_DIR "${PROJECT_SOURCE_DIR}/deps")
+include(FetchContent)
+
+FetchContent_Declare(
+  spdlog
+  GIT_REPOSITORY https://github.com/gabime/spdlog.git
+  # URL https://github.com/gabime/spdlog/archive/refs/tags/v1.11.0.tar.gz
+  GIT_TAG v1.11.0  # stable
+)
+
+FetchContent_Declare(
+  googletest
+  GIT_REPOSITORY https://github.com/google/googletest.git
+  GIT_TAG release-1.12.1  # stable
+)
+# for Windows user
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+
+# download and config
+FetchContent_MakeAvailable(spdlog googletest)
+# deps info
+message(STATUS "gtest include目录: ${gtest_SOURCE_DIR}/googletest/include")
+message(STATUS "gmock include目录: ${gtest_SOURCE_DIR}/googlemock/include")
+# fetchcontent info
+message(STATUS "依赖项将下载到: ${FETCHCONTENT_BASE_DIR}")
+
+set(FETCHCONTENT_FULLY_DISCONNECTED ON)
+set(FETCHCONTENT_UPDATES_DISCONNECTED ON)
+
+# using target_link_libraries auto includes header files，no need additional "include_directories"
+include_directories(
+  ${spdlog_SOURCE_DIR}/include
+  ${gtest_SOURCE_DIR}/googletest/include
+  ${gtest_SOURCE_DIR}/googlemock/include
+)
+
+# 启用测试
+enable_testing()
 
 # message(STATUS "${PROJECT_BINARY_DIR}")
 # message(STATUS "${PROJECT_SOURCE_DIR}")

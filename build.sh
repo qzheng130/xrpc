@@ -16,7 +16,7 @@ CXX=${CXX:-g++}
 
 # 省略了compile_commands.json，它是软链接，指向源文件
 # ln -sf $BUILD_DIR/$BUILD_TYPE/compile_commands.json compile_commands.json
-ln -sf $BUILD_DIR/$BUILD_TYPE/compile_commands.json
+#ln -sf $BUILD_DIR/$BUILD_TYPE/compile_commands.json
 
 # -DCMAKE_EXPORT_COMPILE_COMMANDS=ON：生成compile_commands.json，包含所有编译单元执行的命令
 # $*是用单个字符串表示shell脚本参数
